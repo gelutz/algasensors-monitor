@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class MonitorController {
 	private final MonitorRepository monitorRepository;
 
-	private final SensorMonitoring findByIdOrDefault(SensorId id) {
+	private SensorMonitoring findByIdOrDefault(SensorId id) {
 		return monitorRepository.findById(id)
 		                        .orElse(SensorMonitoring.builder()
 		                                                .id(id)
