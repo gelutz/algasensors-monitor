@@ -8,6 +8,7 @@ import lutz.algasensors.monitor.domain.model.SensorMonitoring;
 import lutz.algasensors.monitor.domain.repository.MonitorRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/sensors/{sensorId}/monitoring")
@@ -35,6 +36,12 @@ public class MonitorController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void enable(@PathVariable TSID sensorId) {
 		var monitor = findByIdOrDefault(new SensorId(sensorId));
+
+		if (monitor.getEnabled()) {
+			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+
+		}
+
 		monitor.setEnabled(true);
 		monitorRepository.save(monitor);
 	}
@@ -43,6 +50,11 @@ public class MonitorController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void disable(@PathVariable TSID sensorId) {
 		var monitor = findByIdOrDefault(new SensorId(sensorId));
+
+		if (!monitor.getEnabled()) {
+			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+
 		monitor.setEnabled(false);
 		monitorRepository.save(monitor);
 	}
