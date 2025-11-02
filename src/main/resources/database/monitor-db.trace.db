@@ -440,3 +440,11 @@ INSERT INTO TEMPERATURE_LOG (ID, SENSOR_ID, MIN_TEMPERATURE, MAX_TEMPERATURE) VA
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:493)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-11-02 16:41:54.858044-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]INTO SENSOR_MONITORING (ID, ENABLED, LAST_TEMPERATURE, UPDATED_AT) VALUES \000d\000a(772139038794331321, 1, 100.0, '2025-03-25 21:12:00.766567-03')"; expected "INSERT"; SQL statement:
+INTO SENSOR_MONITORING (ID, ENABLED, LAST_TEMPERATURE, UPDATED_AT) VALUES 
+(772139038794331321, 1, 100.0, '2025-03-25 21:12:00.766567-03') [42001-232]
+2025-11-02 16:41:54.860317-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]INTO TEMPERATURE_LOG (ID, REGISTERED_AT, SENSOR_ID, ""VALUE"") VALUES \000d\000a('0195cfd5-0487-7da9-a98e-ed69225fc211', , 772139038794331321, 100.0)"; expected "INSERT"; SQL statement:
+INTO TEMPERATURE_LOG (ID, REGISTERED_AT, SENSOR_ID, "VALUE") VALUES 
+('0195cfd5-0487-7da9-a98e-ed69225fc211', , 772139038794331321, 100.0) [42001-232]
