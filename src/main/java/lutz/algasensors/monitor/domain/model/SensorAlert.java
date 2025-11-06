@@ -16,10 +16,7 @@ import lombok.*;
 public class SensorAlert {
 	@Id
 	@AttributeOverride(name = "value", column = @Column(name = "id", columnDefinition = "BIGINT"))
-	private SensorAlertId id;
-
-	@AttributeOverride(name = "value", column = @Column(name = "sensor_id", columnDefinition = "BIGINT"))
-	private SensorId sensorId;
+	private SensorId id;
 
 	private Double minTemperature;
 	private Double maxTemperature;

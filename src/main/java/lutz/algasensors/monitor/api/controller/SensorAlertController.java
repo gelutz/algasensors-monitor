@@ -3,9 +3,7 @@ package lutz.algasensors.monitor.api.controller;
 import lombok.RequiredArgsConstructor;
 import lutz.algasensors.monitor.api.model.SensorAlertInput;
 import lutz.algasensors.monitor.api.model.SensorAlertOutput;
-import lutz.algasensors.monitor.common.IdUtils;
 import lutz.algasensors.monitor.domain.model.SensorAlert;
-import lutz.algasensors.monitor.domain.model.SensorAlertId;
 import lutz.algasensors.monitor.domain.model.SensorId;
 import lutz.algasensors.monitor.domain.repository.SensorAlertRepository;
 import org.springframework.http.HttpStatus;
@@ -19,19 +17,17 @@ public class SensorAlertController {
 	private final SensorAlertRepository saRepository;
 
 	@GetMapping
-	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public SensorAlertOutput get(@PathVariable SensorId sensorId) {
-		return SensorAlertOutput.fromModel(saRepository.findBySensorId(sensorId)
+		return SensorAlertOutput.fromModel(saRepository.findById(sensorId)
 		                                               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
 	}
 
 
 	@PutMapping
 	public SensorAlertOutput save(@PathVariable SensorId sensorId, @RequestBody SensorAlertInput input) {
-		var alert = saRepository.findBySensorId(sensorId)
+		var alert = saRepository.findById(sensorId)
 		                        .orElse(SensorAlert.builder()
-		                                           .id(new SensorAlertId(IdUtils.tsid()))
-		                                           .sensorId(sensorId)
+		                                           .id(sensorId)
 		                                           .minTemperature(0.0)
 		                                           .maxTemperature(0.0)
 		                                           .build()
