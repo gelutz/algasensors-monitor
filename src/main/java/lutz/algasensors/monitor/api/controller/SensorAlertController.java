@@ -42,7 +42,7 @@ public class SensorAlertController {
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable SensorId sensorId) {
-		var alert = saRepository.findBySensorId(sensorId)
+		var alert = saRepository.findById(sensorId)
 		                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
 		saRepository.delete(alert);
