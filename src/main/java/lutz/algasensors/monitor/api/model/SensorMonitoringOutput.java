@@ -13,7 +13,7 @@ public record SensorMonitoringOutput(TSID id, Double lastTemperature, OffsetDate
 				model.getId().getValue(),
 				model.getLastTemperature(),
 				model.getUpdatedAt(),
-				model.getEnabled()
+				model.isEnabled()
 		);
 	}
 }

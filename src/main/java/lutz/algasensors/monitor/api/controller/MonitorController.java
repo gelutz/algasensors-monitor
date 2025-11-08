@@ -37,7 +37,7 @@ public class MonitorController {
 	public void enable(@PathVariable TSID sensorId) {
 		var monitor = findByIdOrDefault(new SensorId(sensorId));
 
-		if (monitor.getEnabled()) {
+		if (monitor.isEnabled()) {
 			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
 
 		}
@@ -51,7 +51,7 @@ public class MonitorController {
 	public void disable(@PathVariable TSID sensorId) {
 		var monitor = findByIdOrDefault(new SensorId(sensorId));
 
-		if (!monitor.getEnabled()) {
+		if (!monitor.isEnabled()) {
 			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 

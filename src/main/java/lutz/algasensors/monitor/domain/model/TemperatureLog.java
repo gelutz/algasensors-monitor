@@ -2,6 +2,7 @@ package lutz.algasensors.monitor.domain.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @IdClass(TemperatureLogId.class)
 public class TemperatureLog {
 	@Id
