@@ -2,7 +2,7 @@ package lutz.algasensors.monitor.api.controller;
 
 import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
-import lutz.algasensors.monitor.api.model.TemperatureLogOutput;
+import lutz.algasensors.monitor.api.model.TemperatureLogData;
 import lutz.algasensors.monitor.domain.model.SensorId;
 import lutz.algasensors.monitor.domain.repository.TemperatureLogRepository;
 import org.springframework.data.domain.Page;
@@ -20,12 +20,12 @@ public class TemperatureLogController {
 	private final TemperatureLogRepository temperatureLogRepository;
 
 	@GetMapping
-	public Page<TemperatureLogOutput> search(@PathVariable TSID sensorId, @PageableDefault Pageable pageable) {
+	public Page<TemperatureLogData> search(@PathVariable TSID sensorId, @PageableDefault Pageable pageable) {
 
 		return temperatureLogRepository
 				.findAllBySensorId(new SensorId(sensorId), pageable)
 				.map(logs ->
-						new TemperatureLogOutput(
+						new TemperatureLogData(
 								logs.getId(),
 								logs.getSensorId().getValue(),
 								logs.getRegisteredAt(),

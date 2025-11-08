@@ -18,3 +18,8 @@ spring:
       # Alterar para create-drop em caso de mudanca do schema
       ddl-auto: update
     show-sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq

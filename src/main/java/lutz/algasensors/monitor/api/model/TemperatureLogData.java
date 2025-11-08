@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Builder
-public record TemperatureLogOutput(
+public record TemperatureLogData(
 		UUID id,
 		TSID sensorId,
 		OffsetDateTime registeredAt,
