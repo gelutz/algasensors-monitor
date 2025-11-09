@@ -9,8 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-	public static final String PROCESS_TEMPERATURE_QUEUUE = "monitor.process-temperature.v1.q";
 	public static final String FANOUT_EXCHANGE_NAME = "processor.temperature-received.v1.e";
+
+	public static final String PROCESS_TEMPERATURE_QUEUUE = "monitor.process-temperature.v1.q";
+	public static final String ALERT_QUEUE = "monitor.alert.v1.q";
 
 	@Bean
 	public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
@@ -18,9 +20,16 @@ public class RabbitMQConfig {
 	}
 
 	@Bean
-	public Queue queue() {
+	public Queue processTemperatureQueue() {
 		return QueueBuilder
 				.durable(PROCESS_TEMPERATURE_QUEUUE)
+				.build();
+	}
+
+	@Bean
+	public Queue alertQueue() {
+		return QueueBuilder
+				.durable(ALERT_QUEUE)
 				.build();
 	}
 
@@ -30,7 +39,12 @@ public class RabbitMQConfig {
 	}
 
 	@Bean
-	public Binding binding() {
-		return BindingBuilder.bind(queue()).to(exchange());
+	public Binding bingProcesstemperature() {
+		return BindingBuilder.bind(processTemperatureQueue()).to(exchange());
+	}
+
+	@Bean
+	public Binding bindAlert() {
+		return BindingBuilder.bind(alertQueue()).to(exchange());
 	}
 }

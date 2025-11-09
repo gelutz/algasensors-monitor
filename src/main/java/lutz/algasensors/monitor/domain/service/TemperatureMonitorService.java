@@ -1,4 +1,4 @@
-package lutz.algasensors.monitor.domain;
+package lutz.algasensors.monitor.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class TemperatureMonitorService {
 	public final MonitorRepository monitorRepository;
 	public final TemperatureLogRepository temperatureLogRepository;
 
-	public void processTemperatureReading(TemperatureLogData data) {
+	public void handleProcessTemperature(TemperatureLogData data) {
 		monitorRepository.findById(new SensorId(data.sensorId()))
 		                 .ifPresentOrElse(
 				                 sensor -> handleTemperatureReading(data, sensor),
