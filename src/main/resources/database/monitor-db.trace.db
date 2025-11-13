@@ -448,3 +448,6 @@ INTO SENSOR_MONITORING (ID, ENABLED, LAST_TEMPERATURE, UPDATED_AT) VALUES
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]INTO TEMPERATURE_LOG (ID, REGISTERED_AT, SENSOR_ID, ""VALUE"") VALUES \000d\000a('0195cfd5-0487-7da9-a98e-ed69225fc211', , 772139038794331321, 100.0)"; expected "INSERT"; SQL statement:
 INTO TEMPERATURE_LOG (ID, REGISTERED_AT, SENSOR_ID, "VALUE") VALUES 
 ('0195cfd5-0487-7da9-a98e-ed69225fc211', , 772139038794331321, 100.0) [42001-232]
+2025-11-08 15:45:18.874305-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'0K6ZYEYMTZ8QT' (SENSOR_MONITORING: ""ID"" BIGINT NOT NULL)"; SQL statement:
+insert into sensor_monitoring (id, enabled, last_temperature) values ('0K6ZYEYMTZ8QT', true, 20.0) [22018-232]

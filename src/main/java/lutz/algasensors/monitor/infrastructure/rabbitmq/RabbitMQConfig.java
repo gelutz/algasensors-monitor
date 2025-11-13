@@ -6,12 +6,16 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 public class RabbitMQConfig {
 
 	public static final String FANOUT_EXCHANGE_NAME = "processor.temperature-received.v1.e";
 
-	public static final String PROCESS_TEMPERATURE_QUEUUE = "monitor.process-temperature.v1.q";
+	public static final String PROCESS_TEMPERATURE_QUEUE = "monitor.process-temperature.v1.q";
+	public static final String PROCESS_TEMPERATURE_DEAD_LETTER_QUEUE = "monitor.process-temperature.v1.dlq";
 	public static final String ALERT_QUEUE = "monitor.alert.v1.q";
 
 	@Bean
@@ -20,9 +24,21 @@ public class RabbitMQConfig {
 	}
 
 	@Bean
-	public Queue processTemperatureQueue() {
+	public Queue processTemperatureDeadLetterQueue() {
 		return QueueBuilder
-				.durable(PROCESS_TEMPERATURE_QUEUUE)
+				.durable(PROCESS_TEMPERATURE_DEAD_LETTER_QUEUE)
+				.build();
+	}
+
+	@Bean
+	public Queue processTemperatureQueue() {
+		Map<String, Object> arguments = new HashMap<>();
+		arguments.put("x-dead-letter-exchange", "");
+		arguments.put("x-dead-letter-routing-key", PROCESS_TEMPERATURE_DEAD_LETTER_QUEUE);
+
+		return QueueBuilder
+				.durable(PROCESS_TEMPERATURE_QUEUE)
+				.withArguments(arguments)
 				.build();
 	}
 

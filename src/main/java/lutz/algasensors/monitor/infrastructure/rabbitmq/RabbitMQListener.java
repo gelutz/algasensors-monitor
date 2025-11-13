@@ -10,15 +10,17 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
+
 public class RabbitMQListener {
 	private final TemperatureMonitorService temperatureMonitorService;
 	private final SensorAlertService sensorAlertService;
 
 	@Transactional
-	@RabbitListener(queues = RabbitMQConfig.PROCESS_TEMPERATURE_QUEUUE, concurrency = "2-3")
+	@RabbitListener(queues = RabbitMQConfig.PROCESS_TEMPERATURE_QUEUE, concurrency = "2-3")
 	public void handleProcessTemperature(@Payload TemperatureLogData data) {
 		temperatureMonitorService.handleProcessTemperature(data);
 	}

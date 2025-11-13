@@ -20,6 +20,9 @@ public class TemperatureMonitorService {
 	public final TemperatureLogRepository temperatureLogRepository;
 
 	public void handleProcessTemperature(TemperatureLogData data) {
+		if (data.value() == 10) // para forçar um erro e testar a dead letter queue
+			throw new RuntimeException("oops");
+
 		monitorRepository.findById(new SensorId(data.sensorId()))
 		                 .ifPresentOrElse(
 				                 sensor -> handleTemperatureReading(data, sensor),
