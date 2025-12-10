@@ -1,15 +1,23 @@
 package lutz.algasensors.monitor.infrastructure.rabbitmq;
 
-import org.springframework.amqp.core.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.ExchangeBuilder;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashMap;
-import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
+@Slf4j
 public class RabbitMQConfig {
 
 	public static final String FANOUT_EXCHANGE_NAME = "processor.temperature-received.v1.e";
