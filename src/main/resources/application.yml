@@ -19,7 +19,7 @@ spring:
       ddl-auto: update
     show-sql: true
   rabbitmq:
-    host: algasensors-rabbitmq
+    host: rabbitmq
     port: 5672
     username: rabbitmq
     password: rabbitmq
